@@ -20,3 +20,14 @@ tree.insert(33);
 tree.deleteItem(4);
 prettyPrint(tree.root);
 console.log(tree.find(67));
+
+// Tree traversal methods
+const callback = (node) => console.log(node.data);
+console.log("Breadth-first\nLevel Order:");
+tree.levelOrderForEach(callback);
+console.log("Depth-first\nIn Order:");
+tree.inOrderForEach(callback);
+console.log("Pre Order:");
+tree.preOrderForEach(callback);
+console.log("Post Order:");
+tree.postOrderForEach(callback);
