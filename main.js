@@ -1,6 +1,4 @@
 import Tree from "./classes.js";
-const array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-const tree = new Tree(array);
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
@@ -15,27 +13,52 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-prettyPrint(tree.root);
-tree.insert(33);
-tree.insert(34);
-tree.insert(39);
-tree.deleteItem(4);
-prettyPrint(tree.root);
-console.log(tree.find(67));
+const generateRandomArr = () => {
+  const generateRandomNum = () => Math.floor(Math.random() * 100);
+  const arr = [];
 
-// Tree traversal methods
-const callback = (node) => console.log(node.data);
-console.log("Breadth-first\nLevel Order:");
-tree.levelOrderForEach(callback);
-console.log("Depth-first\nIn Order:");
-tree.inOrderForEach(callback);
-console.log("Pre Order:");
-tree.preOrderForEach(callback);
-console.log("Post Order:");
-tree.postOrderForEach(callback);
-console.log("Height of root(8): ", tree.height(8));
-console.log("Depth of leaf (1): ", tree.depth(1));
-console.log("Is tree Balenced? ", tree.isBalenced());
-tree.rebalance();
-console.log("Tree rebalanced:");
+  while (arr.length < 10) {
+    arr.push(generateRandomNum());
+  }
+
+  return arr;
+};
+const randomArr = generateRandomArr();
+const tree = new Tree(randomArr);
+
+let traversal = {
+  levelOrder: "",
+  preOrder: "",
+  postOrder: "",
+  inOrder: "",
+};
+
 prettyPrint(tree.root);
+console.log("Is tree balenced? ", tree.isBalenced());
+tree.levelOrderForEach((node) => (traversal.levelOrder += node.data + " "));
+tree.preOrderForEach((node) => (traversal.preOrder += node.data + " "));
+tree.postOrderForEach((node) => (traversal.postOrder += node.data + " "));
+tree.inOrderForEach((node) => (traversal.inOrder += node.data + " "));
+console.log(traversal);
+tree.insert(108);
+tree.insert(133);
+tree.insert(150);
+console.log("Inserted 108, 133 and 150:");
+prettyPrint(tree.root);
+console.log("Is Tree balenced? ", tree.isBalenced());
+
+console.log("Rebalancing the tree...");
+tree.rebalance();
+prettyPrint(tree.root);
+console.log("Is Tree balenced? ", tree.isBalenced());
+traversal = {
+  levelOrder: "",
+  preOrder: "",
+  postOrder: "",
+  inOrder: "",
+};
+tree.levelOrderForEach((node) => (traversal.levelOrder += node.data + " "));
+tree.preOrderForEach((node) => (traversal.preOrder += node.data + " "));
+tree.postOrderForEach((node) => (traversal.postOrder += node.data + " "));
+tree.inOrderForEach((node) => (traversal.inOrder += node.data + " "));
+console.log(traversal);
