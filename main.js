@@ -17,6 +17,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(tree.root);
 tree.insert(33);
+tree.insert(34);
+tree.insert(39);
 tree.deleteItem(4);
 prettyPrint(tree.root);
 console.log(tree.find(67));
@@ -31,3 +33,9 @@ console.log("Pre Order:");
 tree.preOrderForEach(callback);
 console.log("Post Order:");
 tree.postOrderForEach(callback);
+console.log("Height of root(8): ", tree.height(8));
+console.log("Depth of leaf (1): ", tree.depth(1));
+console.log("Is tree Balenced? ", tree.isBalenced());
+tree.rebalance();
+console.log("Tree rebalanced:");
+prettyPrint(tree.root);

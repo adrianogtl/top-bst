@@ -144,4 +144,46 @@ export default class Tree {
 
     return;
   }
+
+  height(value, node = this.find(value)) {
+    if (!node) return null;
+    if (!node.left && !node.right) return 0;
+
+    const leftHeight = node.left ? this.height(node.left.data, node.left) : 0;
+    const rightHeight = node.right
+      ? this.height(node.right.data, node.right)
+      : 0;
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
+  depth(value, node = this.root, depthCounter = 0) {
+    if (!node) return null;
+    if (value === node.data) return depthCounter;
+
+    if (value < node.data) {
+      return this.depth(value, node.left, depthCounter + 1);
+    } else {
+      return this.depth(value, node.right, depthCounter + 1);
+    }
+  }
+
+  isBalenced(node = this.root) {
+    if (!node) return true;
+
+    const leftHeight = node.left ? this.height(node.left.data, node.left) : 0;
+    const rightHeight = node.right
+      ? this.height(node.right.data, node.right)
+      : 0;
+
+    if (Math.abs(leftHeight - rightHeight) > 1) return false;
+
+    return this.isBalenced(node.left) && this.isBalenced(node.right);
+  }
+
+  rebalance() {
+    const nodes = [];
+    this.inOrderForEach((node) => nodes.push(node.data));
+    this.root = this.buildTree(nodes);
+  }
 }
